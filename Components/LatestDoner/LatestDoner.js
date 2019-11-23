@@ -44,6 +44,7 @@ class LatestDoner extends Component {
     // checks with the team tree api every 10s
 
     checkForUpdate = async () => {
+        console.log("checking...");
         try {
             let latestDoners = await teamTrees.getMostRecent();
             this.props.setLatestDoners(latestDoners);
@@ -57,18 +58,16 @@ class LatestDoner extends Component {
 
     render () {
         return (
+
             <View style={styles.container}>
-                <ScrollView style = {styles.container}>
+                {console.log('render')}
+                <ScrollView style = {styles.container}>{
 
-                    {
-
-                        (this.props.latestDoners||[]).map((item, key) => (
-                        <View key={key} >
+                    (this.props.latestDoners||[]).map((item, key) => (
+                    <View key={key} >
                         <DonationCard donation={item}/>
-                        </View>
-                        ))
-
-                    }
+                    </View>
+                    ))}
                 </ScrollView>
             </View>
 
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
+        backgroundColor:'darkkhaki'
     },
 })
 

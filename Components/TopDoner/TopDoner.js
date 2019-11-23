@@ -45,7 +45,7 @@ class TopDoner extends Component {
 
     checkForUpdate = async () => {
         try {
-            let topDoners = (await teamTrees.getMostTrees()).slice(0,9);
+            let topDoners = await teamTrees.getMostTrees();
             this.props.setTopDoners(topDoners);
             //console.log(typeof({this.props.topDoners[0].img}));
 
@@ -58,17 +58,13 @@ class TopDoner extends Component {
     render () {
         return (
             <View style={styles.container}>
-                <ScrollView style = {styles.container}>
+                <ScrollView style = {styles.container}>{
 
-                    {
-
-                        (this.props.topDoners||[]).map((item, key) => (
-                        <View key={key} >
+                    (this.props.topDoners||[]).map((item, key) => (
+                    <View key={key} >
                         <DonationCard donation={item}/>
-                        </View>
-                        ))
-
-                    }
+                    </View>
+                    ))}
                 </ScrollView>
             </View>
 
@@ -82,6 +78,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
+        backgroundColor:'darkkhaki'
     },
 })
 

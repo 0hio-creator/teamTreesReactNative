@@ -21,7 +21,7 @@ const MainNavigator = createStackNavigator(
     {
         Home: {screen: HomeScreen},
         TopDoner: {screen: TopDoner},
-        LatestDoner: {screen:LatestDoner}
+        LatestDoner: {screen: LatestDoner}
     },
     {
         initialRouteName: 'Home',

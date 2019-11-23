@@ -24,8 +24,9 @@ class DonationCard extends Component {
                     />
                 </View>
                 <View style={styles.textBox}>
-                    <Text style={styles.textName}> {this.props.donation ? this.props.donation.name : null}</Text>
-                    <Text style={styles.textMessage}> {this.props.donation ? this.props.donation.message : null}</Text>
+                    <Text style={styles.textName}>{this.props.donation ? this.props.donation.name : null}</Text>
+                    <Text style={styles.textTrees}> {this.props.donation ? this.props.donation.trees : null} trees </Text>
+                    <Text style={styles.textMessage}>{this.props.donation ? this.props.donation.message : null}</Text>
                 </View>
             </View>
         )
@@ -53,13 +54,20 @@ const styles = StyleSheet.create({
     },
     textName:{
         marginTop:2,
-        fontSize:20,
+        fontSize:18,
         fontWeight:'bold',
         flex:1
     },
     textMessage:{
         marginTop:2,
-        flex:1
-    }
+        marginRight:5,
+        flex:2
+    },
+    textTrees:{
+        marginTop:2,
+        backgroundColor: '#8ab73f',
+        alignSelf: 'flex-start',
+    },
+
 })
 export default DonationCard
