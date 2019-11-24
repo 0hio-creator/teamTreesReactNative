@@ -10,6 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@aws-amplify/auth": "^1.5.0",
+    "@aws-amplify/core": "^1.2.4",
+    "amazon-cognito-identity-js": "^3.2.0",
     "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-native": "^0.61.4",
@@ -17,6 +20,7 @@
     "react-native-gesture-handler": "^1.5.0",
     "react-native-reanimated": "^1.4.0",
     "react-native-svg": "9.13.3",
+    "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.10",
     "react-navigation-drawer": "^2.3.3",
     "react-navigation-stack": "^1.10.3",

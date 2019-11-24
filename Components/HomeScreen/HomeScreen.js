@@ -166,7 +166,6 @@ const mapDispatchToProps = dispatch => ({
     setTotalTrees: (totalTrees) => dispatch(setTotalTrees(totalTrees)),
     setLatestDoners: (latestDoners) => dispatch(setLatestDoners(latestDoners)),
     setTopDoners: (topDoners) => dispatch(setTopDoners(topDoners)),
-
     setUpdateTimer: (updateTimer) => dispatch(setUpdateTimer(updateTimer))
 
 })

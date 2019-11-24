@@ -1,36 +1,135 @@
 
 import React, {Component} from 'react'
 import {
-      StyleSheet,
-      View,
-      Text,
-      AsyncStorage,
-      TouchableOpacity
+    View,
+    Text,
+    AsyncStorage,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    SafeAreaView,
+    StatusBar,
+    KeyboardAvoidingView,
+    Keyboard,
+    Alert,
+    Animated,
 } from 'react-native'
 
-export default class SignInScreen extends Component {
+import {
+    Container,
+    Item,
+    Input,
+    Icon
+} from 'native-base'
+
+import {styles} from '../styles'
+
+// AWS Amplify
+import Auth from '@aws-amplify/auth'
+
+
+import { connect } from 'react-redux'
+import { setUserName, setPassword } from '../../../Actions'
+
+class SignInScreen extends Component {
+
+
 
     signIn = async () => {
-        await AsyncStorage.setItem('userToken', '123456789')
-        this.props.navigation.navigate('Initializer')
+
+       await Auth.signIn({
+            username:this.props.userName,
+            password:this.props.password
+        })
+        .then(user => {
+            this.setState({ user })
+            this.props.navigation.navigate('Initializer')
+        })
+        .catch(err => {
+            if (! err.message) {
+                console.log('Error when signing in: ', err)
+                Alert.alert('Error when signing in: ', err)
+            } else {
+                console.log('Error when signing in: ', err.message)
+                Alert.alert('Error when signing in: ', err.message)
+            }
+        })
     }
     render() {
-        return (
+    return (
+      <SafeAreaView style={styles.container}>
+        <StatusBar/>
+        <KeyboardAvoidingView style={styles.container} behavior='padding' enabled>
+          <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
             <View style={styles.container}>
-            <TouchableOpacity
-                onPress={this.signIn}
-                style={styles.buttonStyle}>
-                <Text style={styles.textStyle}>Complete sign in</Text>
-            </TouchableOpacity>
+              <Container style={styles.infoContainer}>
+                <View style={styles.container}>
+                  <Item rounded style={styles.itemStyle}>
+                    <Icon
+                      active
+                      name='person'
+                      style={styles.iconStyle}
+                    />
+                    <Input
+                      style={styles.input}
+                      placeholder='Username'
+                      placeholderTextColor='#adb4bc'
+                      keyboardType={'email-address'}
+                      returnKeyType='next'
+                      autoCapitalize='none'
+                      autoCorrect={false}
+                      onSubmitEditing={(event) => {this.refs.SecondInput._root.focus()}}
+                      value={this.props.userName}
+                      onChangeText={(value) => {this.props.setUserName(value)}}
+                    />
+                  </Item>
+                  <Item rounded style={styles.itemStyle}>
+                    <Icon
+                      active
+                      name='lock'
+                      style={styles.iconStyle}
+                    />
+                    <Input
+                      style={styles.input}
+                      placeholder='Password'
+                      placeholderTextColor='#adb4bc'
+                      returnKeyType='go'
+                      autoCapitalize='none'
+                      autoCorrect={false}
+                      secureTextEntry={true}
+                      ref='SecondInput'
+                      value={this.props.password}
+                      onChangeText={(value) => {this.props.setPassword(value)}}
+                    />
+                  </Item>
+                  <TouchableOpacity
+                    onPress={() => this.signIn()}
+                    style={styles.buttonStyle}>
+                    <Text style={styles.buttonText}>
+                      Sign In
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </Container>
             </View>
-        )
-    }
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    )
+  }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#aa73b7',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
+const mapStateToProps = state => ({
+    userName:state.loginInfo.userName,
+    password:state.loginInfo.password,
 })
+
+const mapDispatchToProps = dispatch => ({
+    setUserName: (userName) => dispatch(setUserName(userName)),
+    setPassword: (password) => dispatch(setPassword(password)),
+
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SignInScreen);

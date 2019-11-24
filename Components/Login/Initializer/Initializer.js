@@ -4,10 +4,15 @@ import {
     View,
     Text,
     ActivityIndicator,
-    AsyncStorage
 } from 'react-native'
 
-export default class Initializer extends Component {
+// AWS Amplify
+import Auth from '@aws-amplify/auth'
+
+import { connect } from 'react-redux'
+import {setUserToken} from '../../../Actions'
+
+class Initializer extends Component {
 
     componentDidMount = async () => {
 
@@ -17,8 +22,12 @@ export default class Initializer extends Component {
 
     loadApp = async () => {
 
-        const userToken = await AsyncStorage.getItem('userToken')
-        this.props.navigation.navigate(userToken ? 'Home' : 'Welcome')
+        await Auth.currentAuthenticatedUser()
+        .then(user => {
+            this.props.setUserToken(user)
+        })
+        .catch(err => console.log(err))
+        this.props.navigation.navigate(this.props.userToken ? 'App' : 'Auth')
     }
 
     render() {
@@ -37,3 +46,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 })
+
+Initializer
+
+const mapStateToProps = state => ({
+    userToken:state.loginInfo.userToken,
+
+})
+
+const mapDispatchToProps = dispatch => ({
+    setUserToken: (userToken) => dispatch(setUserToken(userToken)),
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Initializer);

@@ -22,33 +22,17 @@ import { createStore } from 'redux'
 import rootReducer from './Reducers'
 const store = createStore(rootReducer);
 
-
+// Navigation Setup
 import {createAppContainer, createSwitchNavigator,  } from 'react-navigation'
 import {createStackNavigator,} from 'react-navigation-stack'
 import { createDrawerNavigator } from 'react-navigation-drawer'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 
-/*const MainNavigator = createDrawerNavigator(
-    {
-        Home: {screen: HomeScreen},
-        TopDoner: {screen: TopDoner},
-        LatestDoner: {screen: LatestDoner},
-    },
-    {
-        initialRouteName: 'Home',
-        headerTransitionPreset:'fade-in-place',
-        headerLayoutPreset:'center',
-        defaultNavigationOptions: {
-            headerStyle: {
-                backgroundColor: 'peru',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-        }
-    }
-);*/
+// Amplify imports and config
+import Amplify from '@aws-amplify/core'
+import awsmobile from './Constants/awsmobile'
+Amplify.configure(awsmobile)
+
 
 
 const AppTabNavigator = createStackNavigator (
