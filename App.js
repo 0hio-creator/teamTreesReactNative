@@ -83,7 +83,20 @@ const AuthStackNavigator = createStackNavigator({
     SignIn: {screen: SignInScreen},
     SignUp: {screen:SignUpScreen},
     ForgetPassword: {screen:ForgetPasswordScreen}
-})
+    },
+    {
+        headerLayoutPreset:'center',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: 'peru',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            },
+        }
+    }
+)
 
 
 const Main = createSwitchNavigator ({

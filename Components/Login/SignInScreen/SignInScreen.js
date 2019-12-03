@@ -21,6 +21,7 @@ import {
     Icon
 } from 'native-base'
 
+
 import {styles} from '../styles'
 
 // AWS Amplify
@@ -32,6 +33,11 @@ import { setUserName, setPassword } from '../../../Actions'
 
 class SignInScreen extends Component {
 
+    static navigationOptions = function(props) {
+        return {
+            title: 'Sign In',
+        }
+    };
 
 
     signIn = async () => {
@@ -56,63 +62,65 @@ class SignInScreen extends Component {
     }
     render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar/>
-        <KeyboardAvoidingView style={styles.container} behavior='padding' enabled>
-          <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
-            <View style={styles.container}>
-              <Container style={styles.infoContainer}>
-                <View style={styles.container}>
-                  <Item rounded style={styles.itemStyle}>
-                    <Icon
-                      active
-                      name='person'
-                      style={styles.iconStyle}
-                    />
-                    <Input
-                      style={styles.input}
-                      placeholder='Username'
-                      placeholderTextColor='#adb4bc'
-                      keyboardType={'email-address'}
-                      returnKeyType='next'
-                      autoCapitalize='none'
-                      autoCorrect={false}
-                      onSubmitEditing={(event) => {this.refs.SecondInput._root.focus()}}
-                      value={this.props.userName}
-                      onChangeText={(value) => {this.props.setUserName(value)}}
-                    />
-                  </Item>
-                  <Item rounded style={styles.itemStyle}>
-                    <Icon
-                      active
-                      name='lock'
-                      style={styles.iconStyle}
-                    />
-                    <Input
-                      style={styles.input}
-                      placeholder='Password'
-                      placeholderTextColor='#adb4bc'
-                      returnKeyType='go'
-                      autoCapitalize='none'
-                      autoCorrect={false}
-                      secureTextEntry={true}
-                      ref='SecondInput'
-                      value={this.props.password}
-                      onChangeText={(value) => {this.props.setPassword(value)}}
-                    />
-                  </Item>
-                  <TouchableOpacity
-                    onPress={() => this.signIn()}
-                    style={styles.buttonStyle}>
-                    <Text style={styles.buttonText}>
-                      Sign In
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </Container>
-            </View>
-          </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView
+                style={styles.container}
+                behavior='padding'
+                keyboardVerticalOffset = {null}
+                enabled>
+                <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
+                    <View style={styles.container}>
+                        <Container style={styles.infoContainer}>
+                            <View style={styles.container}>
+                                <Item rounded style={styles.itemStyle}>
+                                    <Icon
+                                        active
+                                        name='person'
+                                        style={styles.iconStyle}/>
+                                    <Input
+                                        style={styles.input}
+                                        placeholder='Username'
+                                        placeholderTextColor='peru'
+                                        keyboardType={'email-address'}
+                                        returnKeyType='next'
+                                        autoCapitalize='none'
+                                        autoCorrect={false}
+                                        onSubmitEditing={(event) => {this.refs.SecondInput._root.focus()}}
+                                        value={this.props.userName}
+                                        onChangeText={(value) => {this.props.setUserName(value)}}
+                                    />
+                                </Item>
+                                <Item rounded style={styles.itemStyle}>
+                                    <Icon
+                                        active
+                                        name='lock'
+                                        style={styles.iconStyle}
+                                    />
+                                    <Input
+                                        style={styles.input}
+                                        placeholder='Password'
+                                        placeholderTextColor='peru'
+                                        returnKeyType='go'
+                                        autoCapitalize='none'
+                                        autoCorrect={false}
+                                        secureTextEntry={true}
+                                        ref='SecondInput'
+                                        value={this.props.password}
+                                        onChangeText={(value) => {this.props.setPassword(value)}}
+                                    />
+                                </Item>
+                                <TouchableOpacity
+                                    onPress={() => this.signIn()}
+                                    style={styles.buttonStyle}>
+                                    <Text style={styles.buttonText}>
+                                        Sign In
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </Container>
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
       </SafeAreaView>
     )
   }

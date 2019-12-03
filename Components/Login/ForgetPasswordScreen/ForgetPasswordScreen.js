@@ -31,136 +31,137 @@ import { setUserName, setPassword, setConfirmationCode } from '../../../Actions'
 
 
 class ForgetPasswordScreen extends Component {
+    static navigationOptions = {
+        title: 'Forgot Password'
+    };
 
-
-      // Request a new password
-         forgotPassword = async () => {
-          await Auth.forgotPassword(this.props.userName)
-          .then(data => console.log('New code sent', data))
-          .catch(err => {
+    // Request a new password
+    forgotPassword = async () => {
+        await Auth.forgotPassword(this.props.userName)
+        .then(data => console.log('New code sent', data))
+        .catch(err => {
             if (! err.message) {
-              console.log('Error while setting up the new password: ', err)
-              Alert.alert('Error while setting up the new password: ', err)
+                console.log('Error while setting up the new password: ', err)
+                Alert.alert('Error while setting up the new password: ', err)
             } else {
-              console.log('Error while setting up the new password: ', err.message)
-              Alert.alert('Error while setting up the new password: ', err.message)
+                console.log('Error while setting up the new password: ', err.message)
+                Alert.alert('Error while setting up the new password: ', err.message)
             }
-          })
-        }
+        })
+    }
 
-        // Upon confirmation redirect the user to the Sign In page
-        forgotPasswordSubmit = async() => {
-          await Auth.forgotPasswordSubmit(this.props.userName, this.props.confirmationCode, this.props.password)
-          .then(() => {
+    // Upon confirmation redirect the user to the Sign In page
+    forgotPasswordSubmit = async() => {
+        await Auth.forgotPasswordSubmit(this.props.userName, this.props.confirmationCode, this.props.password)
+        .then(() => {
             this.props.navigation.navigate('SignIn')
             console.log('the New password submitted successfully')
-          })
-          .catch(err => {
+        })
+        .catch(err => {
             if (! err.message) {
-              console.log('Error while confirming the new password: ', err)
-              Alert.alert('Error while confirming the new password: ', err)
+                console.log('Error while confirming the new password: ', err)
+                Alert.alert('Error while confirming the new password: ', err)
             } else {
-              console.log('Error while confirming the new password: ', err.message)
-              Alert.alert('Error while confirming the new password: ', err.message)
+                console.log('Error while confirming the new password: ', err.message)
+                Alert.alert('Error while confirming the new password: ', err.message)
             }
-          })
-        }
+        })
+    }
 
-        render() {
-      return (
-        <SafeAreaView style={styles.container}>
-          <StatusBar/>
-          <KeyboardAvoidingView
-            style={styles.container}
-            behavior='padding'
-            enabled
-            keyboardVerticalOffset={23}>
-            <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
-              <View style={styles.container}>
-                {/* Infos */}
-                <Container style={styles.infoContainer}>
+    render() {
+        return (
+            <SafeAreaView style={styles.container}>
+              <KeyboardAvoidingView
+                style={styles.container}
+                behavior='padding'
+                enabled
+                keyboardVerticalOffset={null}>
+                <TouchableWithoutFeedback style={styles.container} onPress={Keyboard.dismiss}>
                   <View style={styles.container}>
-                    {/* Username */}
-                    <Item rounded style={styles.itemStyle}>
-                      <Icon
-                        active
-                        name='person'
-                        style={styles.iconStyle}
-                      />
-                      <Input
-                        style={styles.input}
-                        placeholder='Username'
-                        placeholderTextColor='#adb4bc'
-                        keyboardType={'email-address'}
-                        returnKeyType='go'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        value={this.props.userName}
-                        onChangeText={(value) => {this.props.setUserName(value)}}
-                      />
-                    </Item>
-                    <TouchableOpacity
-                        onPress={() => this.forgotPassword()}
-                      style={styles.buttonStyle}>
-                      <Text style={styles.buttonText}>
-                        Send Code
-                      </Text>
-                    </TouchableOpacity>
-                    {/* the New password section  */}
-                    <Item rounded style={styles.itemStyle}>
-                      <Icon
-                        active
-                        name='lock'
-                        style={styles.iconStyle}
-                      />
-                      <Input
-                        style={styles.input}
-                        placeholder='New password'
-                        placeholderTextColor='#adb4bc'
-                        returnKeyType='next'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        secureTextEntry={true}
-                        onSubmitEditing={(event) => { this.refs.SecondInput._root.focus()}}
-                        value={this.props.password}
-                        onChangeText={(value) => {this.props.setPassword(value)}}
-                      />
-                    </Item>
-                    {/* Code confirmation section  */}
-                    <Item rounded style={styles.itemStyle}>
-                      <Icon
-                        active
-                        name='md-apps'
-                        style={styles.iconStyle}
-                      />
-                      <Input
-                        style={styles.input}
-                        placeholder='Confirmation code'
-                        placeholderTextColor='#adb4bc'
-                        keyboardType={'numeric'}
-                        returnKeyType='done'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        secureTextEntry={false}
-                        ref='SecondInput'
-                        value={this.props.confirmationCode}
-                        onChangeText={(value) => {this.props.setConfirmationCode(value)}}
-                      />
-                    </Item>
-                    <TouchableOpacity
-                    onPress={() => this.forgotPasswordSubmit()}
-                      style={styles.buttonStyle}>
-                      <Text style={styles.buttonText}>
-                        Confirm the new password
-                      </Text>
-                    </TouchableOpacity>
+                    {/* Infos */}
+                    <Container style={styles.infoContainer}>
+                      <View style={styles.container}>
+                        {/* Username */}
+                        <Item rounded style={styles.itemStyle}>
+                          <Icon
+                            active
+                            name='person'
+                            style={styles.iconStyle}
+                          />
+                          <Input
+                            style={styles.input}
+                            placeholder='Username'
+                            placeholderTextColor='peru'
+                            keyboardType={'email-address'}
+                            returnKeyType='go'
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            value={this.props.userName}
+                            onChangeText={(value) => {this.props.setUserName(value)}}
+                          />
+                        </Item>
+                        <TouchableOpacity
+                            onPress={() => this.forgotPassword()}
+                          style={styles.buttonStyle}>
+                          <Text style={styles.buttonText}>
+                            Send Code
+                          </Text>
+                        </TouchableOpacity>
+                        {/* the New password section  */}
+                        <Item rounded style={styles.itemStyle}>
+                          <Icon
+                            active
+                            name='lock'
+                            style={styles.iconStyle}
+                          />
+                          <Input
+                            style={styles.input}
+                            placeholder='New password'
+                            placeholderTextColor='peru'
+                            returnKeyType='next'
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            onSubmitEditing={(event) => { this.refs.SecondInput._root.focus()}}
+                            value={this.props.password}
+                            onChangeText={(value) => {this.props.setPassword(value)}}
+                          />
+                        </Item>
+                        {/* Code confirmation section  */}
+                        <Item rounded style={styles.itemStyle}>
+                          <Icon
+                            active
+                            name='md-apps'
+                            style={styles.iconStyle}
+                          />
+                          <Input
+                            style={styles.input}
+                            placeholder='Confirmation code'
+                            placeholderTextColor='peru'
+                            keyboardType={'numeric'}
+                            returnKeyType='done'
+                            autoCapitalize='none'
+                            autoCorrect={false}
+                            secureTextEntry={false}
+                            ref='SecondInput'
+                            value={this.props.confirmationCode}
+                            onChangeText={(value) => {this.props.setConfirmationCode(value)}}
+                          />
+                        </Item>
+                        <TouchableOpacity
+                        onPress={() => this.forgotPasswordSubmit()}
+                          style={styles.buttonStyle}>
+                          <Text style={styles.buttonText}>
+                            Confirm the new password
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </Container>
                   </View>
-                </Container>
-              </View>
-            </TouchableWithoutFeedback>
-          </KeyboardAvoidingView>
-        </SafeAreaView>
-      );
+                </TouchableWithoutFeedback>
+              </KeyboardAvoidingView>
+            </SafeAreaView>
+        );
     }
 }
 

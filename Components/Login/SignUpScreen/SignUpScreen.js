@@ -31,63 +31,67 @@ import { connect } from 'react-redux'
 import { setEmail, setUserName, setPassword, setPhoneNumber, setConfirmationCode } from '../../../Actions'
 
 class SignUpScreen extends Component {
-
-
-
-  // Sign up user with AWS Amplify Auth
-   signUp = async() => {
-
-    // rename variable to conform with Amplify Auth field phone attribute
-    console.log('userName:',this.props.email)
-
-    await Auth.signUp({
-        username: this.props.userName,
-        password: this.props.password,
-        attributes: {
-           email: this.props.email,
-           phone_number: this.props.phoneNumber
-       }
-    })
-    .then(() => {
-        console.log('sign up successful!')
-        Alert.alert('Enter the confirmation code you received.')
-    })
-    .catch(err => {
-        if (! err.message) {
-            console.log('Error when signing up: ', err)
-            Alert.alert('Error when signing up: ', err)
-        } else {
-            console.log('Error when signing up: ', err.message)
-            Alert.alert('Error when signing up: ', err.message)
+    static navigationOptions = function(props) {
+        return {
+            title: 'Sign Up',
         }
-    })
-  }
+    };
 
-  // Confirm users and redirect them to the SignIn page
-   confirmSignUp = async() => {
-    //const { username, authCode } = this.state
-    console.log(typeof(this.props.confirmationCode))
 
-    await Auth.confirmSignUp(
-        this.props.userName,
-        this.props.confirmationCode
-    )
-    .then(() => {
-      this.props.navigation.navigate('SignIn')
-      console.log('Confirm sign up successful')
-    })
-    .catch(err => {
-      if (! err.message) {
-        console.log('Error when entering confirmation code: ', err)
-        Alert.alert('Error when entering confirmation code: ', err)
-      } else {
-        console.log('Error when entering confirmation code: ', err.message)
-        Alert.alert('Error when entering confirmation code: ', err.message)
-      }
-  })
-  }
+    // Sign up user with AWS Amplify Auth
+    signUp = async() => {
 
-  // Resend code if not received already
+        // rename variable to conform with Amplify Auth field phone attribute
+        console.log('userName:',this.props.email)
+
+        await Auth.signUp({
+            username: this.props.userName,
+            password: this.props.password,
+            attributes: {
+                email: this.props.email,
+                phone_number: this.props.phoneNumber
+            }
+        })
+        .then(() => {
+            console.log('sign up successful!')
+            Alert.alert('Enter the confirmation code you received.')
+        })
+        .catch(err => {
+            if (! err.message) {
+                console.log('Error when signing up: ', err)
+                Alert.alert('Error when signing up: ', err)
+            } else {
+                console.log('Error when signing up: ', err.message)
+                Alert.alert('Error when signing up: ', err.message)
+            }
+        })
+    }
+
+    // Confirm users and redirect them to the SignIn page
+    confirmSignUp = async() => {
+        //const { username, authCode } = this.state
+        console.log(typeof(this.props.confirmationCode))
+
+        await Auth.confirmSignUp(
+            this.props.userName,
+            this.props.confirmationCode
+        )
+        .then(() => {
+          this.props.navigation.navigate('SignIn')
+          console.log('Confirm sign up successful')
+        })
+        .catch(err => {
+            if (! err.message) {
+                console.log('Error when entering confirmation code: ', err)
+                Alert.alert('Error when entering confirmation code: ', err)
+            } else {
+                console.log('Error when entering confirmation code: ', err.message)
+                Alert.alert('Error when entering confirmation code: ', err.message)
+            }
+        })
+    }
+
+    // Resend code if not received already
     resendSignUp = async() => {
         await Auth.resendSignUp({
             username:this.props.userName
@@ -119,7 +123,7 @@ class SignUpScreen extends Component {
                             <Input
                                 style={styles.input}
                                 placeholder='Username'
-                                placeholderTextColor='#adb4bc'
+                                placeholderTextColor='peru'
                                 keyboardType={'email-address'}
                                 returnKeyType='next'
                                 autoCapitalize='none'
@@ -139,7 +143,7 @@ class SignUpScreen extends Component {
                             <Input
                                 style={styles.input}
                                 placeholder='Password'
-                                placeholderTextColor='#adb4bc'
+                                placeholderTextColor='peru'
                                 returnKeyType='next'
                                 autoCapitalize='none'
                                 autoCorrect={false}
@@ -161,7 +165,7 @@ class SignUpScreen extends Component {
                             <Input
                                 style={styles.input}
                                 placeholder='Email'
-                                placeholderTextColor='#adb4bc'
+                                placeholderTextColor='peru'
                                 keyboardType={'email-address'}
                                 returnKeyType='next'
                                 autoCapitalize='none'
@@ -183,7 +187,7 @@ class SignUpScreen extends Component {
                             <Input
                                 style={styles.input}
                                 placeholder='+44766554433'
-                                placeholderTextColor='#adb4bc'
+                                placeholderTextColor='peru'
                                 keyboardType={'phone-pad'}
                                 returnKeyType='done'
                                 autoCapitalize='none'
@@ -212,7 +216,7 @@ class SignUpScreen extends Component {
                             <Input
                                 style={styles.input}
                                 placeholder='Confirmation code'
-                                placeholderTextColor='#adb4bc'
+                                placeholderTextColor='peru'
                                 keyboardType={'numeric'}
                                 returnKeyType='done'
                                 autoCapitalize='none'

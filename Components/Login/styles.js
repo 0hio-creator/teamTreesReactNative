@@ -2,16 +2,17 @@ import {StyleSheet} from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#aa73b7',
-    justifyContent: 'center',
-    flexDirection: 'column'
+      flex: 1,
+      backgroundColor: 'darkkhaki',
+      justifyContent: 'center',
+      flexDirection: 'column'
   },
   input: {
     flex: 1,
     fontSize: 17,
     fontWeight: 'bold',
     color: '#5a52a5',
+
   },
   infoContainer: {
     position: 'relative',
@@ -23,19 +24,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 30,
-    backgroundColor: '#aa73b7',
+    backgroundColor: 'darkkhaki',
   },
   itemStyle: {
     marginBottom: 10,
+    borderColor: 'peru'
   },
   iconStyle: {
-    color: '#5a52a5',
+    color: '#8ab73f',
     fontSize: 28,
     marginLeft: 15
   },
   buttonStyle: {
     alignItems: 'center',
-    backgroundColor: '#667292',
+    backgroundColor: '#8ab73f',
     padding: 14,
     marginBottom: 20,
     borderRadius: 24,
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: "#fff",
+    color: "peru",
   },
   logoContainer: {
     position: 'absolute',
